@@ -2,8 +2,9 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Resume.Application.Services.Interface;
 using Resume.Presentation.Models.Entities.Education;
-using Resume.Presentation.Models.ResumeDbContext;
+
 
 namespace Resume.Presentation.Controllers;
 
@@ -11,11 +12,13 @@ namespace Resume.Presentation.Controllers;
 #endregion
 public class EducationController : Controller
 {
+    private readonly IEducationService _educationService;
 
     #region Ctor
 
-    public EducationController()
+    public EducationController(IEducationService educationService)
     {
+        _educationService = educationService;
     }
 
     #endregion
@@ -24,8 +27,9 @@ public class EducationController : Controller
     [HttpGet]
     public async Task<IActionResult> ListOfEducations()
     {
-        
-        return View();
+        List<Education> educations = await _educationService
+                                            .GetListOfEducationsAsync();
+        return View(educations);
     }
 
     #endregion
