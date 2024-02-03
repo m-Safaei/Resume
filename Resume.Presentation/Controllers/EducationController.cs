@@ -1,6 +1,7 @@
 ﻿#region Usings
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Resume.Presentation.Models.Entities.Education;
 using Resume.Presentation.Models.ResumeDbContext;
 
@@ -23,10 +24,9 @@ public class EducationController : Controller
 
     #region List of Educations
     [HttpGet]
-    public IActionResult ListOfEducations()
+    public async Task<IActionResult> ListOfEducations()
     {
-        List<Education> educations = _context.Educations.ToList();
-        var education = _context.Educations.OrderBy(e=>e.Id).Last();
+        List<Education> educations = await _context.Educations.ToListAsync();
         return View();
     }
 
@@ -34,25 +34,45 @@ public class EducationController : Controller
 
     #region Create an Education
 
-    public IActionResult CreateEducation()
+    public async Task<IActionResult> CreateEducation()
     {
-        #region Create Record
+        #region Fill Education Instace
 
         Education education = new()
         {
-            EducationTitle = "Master",
-            EducationDuration = "2012",
-            Description = "Degree"
+            EducationDuration = "2022-2023",
+            EducationTitle = "Military",
+            Description = "That was ... "
         };
 
-        _context.Educations.Add(education);
-        _context.SaveChanges();
+        #endregion
+
+        #region Add Record to the Database
+
+        await _context.Educations.AddAsync(education);
+        await _context.SaveChangesAsync();
 
 
         #endregion
-        return View();
+        return RedirectToAction(nameof(ListOfEducations));
     }
-    
+
+
+    #endregion
+
+    #region Delete An Education
+
+    public async Task<IActionResult> DeleteAnEducation(int educationId)
+    {
+        Education? education = await _context.Educations
+                                     .FirstOrDefaultAsync(p => 
+                                                          p.Id == educationId);
+        _context.Educations.Remove(education);
+        await _context.SaveChangesAsync(); 
+
+        return RedirectToAction(nameof(ListOfEducations));
+    }
+
 
     #endregion
 }
