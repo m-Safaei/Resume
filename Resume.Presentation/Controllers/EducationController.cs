@@ -1,8 +1,10 @@
 ﻿#region Usings
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Resume.Application.Services.Interface;
 using Resume.Presentation.Models.Entities.Education;
-using Resume.Presentation.Models.ResumeDbContext;
+
 
 namespace Resume.Presentation.Controllers;
 
@@ -10,49 +12,48 @@ namespace Resume.Presentation.Controllers;
 #endregion
 public class EducationController : Controller
 {
-    private readonly ResumeDbContext _context;
+    private readonly IEducationService _educationService;
 
     #region Ctor
 
-    public EducationController(ResumeDbContext context)
+    public EducationController(IEducationService educationService)
     {
-        _context = context;
+        _educationService = educationService;
     }
 
     #endregion
 
     #region List of Educations
     [HttpGet]
-    public IActionResult ListOfEducations()
+    public async Task<IActionResult> ListOfEducations()
     {
-        List<Education> educations = _context.Educations.ToList();
-        var education = _context.Educations.OrderBy(e=>e.Id).Last();
-        return View();
+        List<Education> educations = await _educationService
+                                            .GetListOfEducationsAsync();
+        return View(educations);
     }
 
     #endregion
 
     #region Create an Education
 
-    public IActionResult CreateEducation()
+    public async Task<IActionResult> CreateEducation()
     {
-        #region Create Record
-
-        Education education = new()
-        {
-            EducationTitle = "Master",
-            EducationDuration = "2012",
-            Description = "Degree"
-        };
-
-        _context.Educations.Add(education);
-        _context.SaveChanges();
-
-
-        #endregion
-        return View();
+        
+        return RedirectToAction(nameof(ListOfEducations));
     }
-    
+
+
+    #endregion
+
+    #region Delete An Education
+
+    public async Task<IActionResult> DeleteAnEducation(int educationId)
+    {
+         
+
+        return RedirectToAction(nameof(ListOfEducations));
+    }
+
 
     #endregion
 }

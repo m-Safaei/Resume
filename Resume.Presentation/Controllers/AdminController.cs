@@ -15,11 +15,7 @@ public class AdminController : Controller
     {
         return View();
     }
-    [HttpPost]
-    public IActionResult Index(string email,string username)
-    {
-        return View();
-    }
+    
 
     #endregion
 }
