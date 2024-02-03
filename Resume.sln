@@ -5,7 +5,11 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resume.Presentation", "Resume.Presentation", "{E6E519F7-7E76-4399-BF91-EC76947C360B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resume.Presentation", "Resume.Presentation\Resume.Presentation.csproj", "{13552C16-9504-483B-A6C7-F3DFB54782DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resume.Presentation", "Resume.Presentation\Resume.Presentation.csproj", "{13552C16-9504-483B-A6C7-F3DFB54782DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resume.Application", "Resume.Application", "{3B6D9C8F-C321-4F1F-A676-BC107AEA5723}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resume.Application", "Resume.Application\Resume.Application.csproj", "{D51BDAF9-67E0-4ECB-AC6A-9F3A8181FDA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +21,17 @@ Global
 		{13552C16-9504-483B-A6C7-F3DFB54782DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13552C16-9504-483B-A6C7-F3DFB54782DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13552C16-9504-483B-A6C7-F3DFB54782DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D51BDAF9-67E0-4ECB-AC6A-9F3A8181FDA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D51BDAF9-67E0-4ECB-AC6A-9F3A8181FDA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D51BDAF9-67E0-4ECB-AC6A-9F3A8181FDA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D51BDAF9-67E0-4ECB-AC6A-9F3A8181FDA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{13552C16-9504-483B-A6C7-F3DFB54782DE} = {E6E519F7-7E76-4399-BF91-EC76947C360B}
+		{D51BDAF9-67E0-4ECB-AC6A-9F3A8181FDA7} = {3B6D9C8F-C321-4F1F-A676-BC107AEA5723}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCF3959C-2354-4D63-ACFB-91BF7E613CF6}
