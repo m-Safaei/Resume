@@ -1,32 +1,38 @@
+#region Usings
+
 using Microsoft.AspNetCore.Mvc;
 using Resume.Presentation.Models;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Resume.Presentation.Models.ResumeDbContext;
 
-namespace Resume.Presentation.Controllers
+namespace Resume.Presentation.Controllers;
+
+
+#endregion
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+
+    #region Ctor
+
+    private readonly ResumeDbContext _context;
+
+    public HomeController(ResumeDbContext context)
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        _context = context;
     }
+
+    #endregion
+
+
+    public async Task<IActionResult> Index()
+    {
+        var mySkillsAsync =await _context.MySkills.ToListAsync();
+
+        var mySkills = _context.MySkills.ToList();
+        return View();
+    }
+
 }
+
