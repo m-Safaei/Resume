@@ -4,7 +4,7 @@ using Resume.Domain.Entities.MySkills;
 
 namespace Resume.Application.DTOs.SiteSide.Home_Index;
 
-public class HomeIndexModelDTO
+public record HomeIndexModelDTO
 {
     public List<Education> Educations { get; set; }
     public List<Experience> Experiences { get; set; }

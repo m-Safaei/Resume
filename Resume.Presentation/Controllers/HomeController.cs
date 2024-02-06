@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Resume.Presentation.Models;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Resume.Application.DTOs.SiteSide.Home_Index;
 using Resume.Domain.Entities.Education;
 using Resume.Domain.Entities.Experience;
 using Resume.Domain.Entities.MySkills;
@@ -40,11 +41,21 @@ public class HomeController : Controller
         List<Experience> experiencesAsync = await _context.Experiences.ToListAsync();
         List<Experience> experiencesSync = _context.Experiences.ToList();
 
+        #region Fill Instance Model
+
+        HomeIndexModelDTO model = new()
+        {
+            Educations = educationsAsync,
+            Experiences = experiencesAsync,
+            MySkills = mySkillsAsync
+        };
+
+        #endregion
         //ViewBag() , ViewData[], TempData[] :These three do the same thing but their implementation is different. 
         //ViewBag.Experience = experiencesAsync;
         //ViewBag.MySkills = mySkillsAsync;
         //ViewBag.Educations = educationsAsync;
-        return View(educationsAsync);
+        return View(model);
     }
 
 }
