@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Resume.Application.Services.Interface;
-using Resume.Presentation.Models.Entities.Education;
-using Resume.Presentation.Models.ResumeDbContext;
+using Resume.Domain.Entities.Education;
+using Resume.Infrastructure.DbContext;
 
 namespace Resume.Application.Services.Implementation;
 

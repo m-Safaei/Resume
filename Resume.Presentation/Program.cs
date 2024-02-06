@@ -1,6 +1,6 @@
 
 
-using Resume.Presentation.Models.ResumeDbContext;
+using Resume.Infrastructure.DbContext;
 
 namespace Resume.Presentation
 {
