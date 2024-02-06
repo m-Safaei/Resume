@@ -2,20 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Resume.Presentation.Models.ResumeDbContext;
+using Resume.Infrastructure.DbContext;
 
 #nullable disable
 
 namespace Resume.Presentation.Migrations
 {
     [DbContext(typeof(ResumeDbContext))]
-    [Migration("20240129191644_Initial-Experience-MySkills-Education-Tables")]
-    partial class InitialExperienceMySkillsEducationTables
+    partial class ResumeDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +30,6 @@ namespace Resume.Presentation.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EducationDuration")

@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Resume.Presentation.Models.ResumeDbContext;
+using Resume.Infrastructure.DbContext;
 
 #nullable disable
 
 namespace Resume.Presentation.Migrations
 {
     [DbContext(typeof(ResumeDbContext))]
-    [Migration("20240129192233_Change-Description-Field")]
-    partial class ChangeDescriptionField
+    [Migration("20240129191644_Initial-Experience-MySkills-Education-Tables")]
+    partial class InitialExperienceMySkillsEducationTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,7 @@ namespace Resume.Presentation.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EducationDuration")
