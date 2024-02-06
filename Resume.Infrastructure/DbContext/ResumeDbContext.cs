@@ -1,16 +1,16 @@
 ﻿#region Using
 
 using Microsoft.EntityFrameworkCore;
-using Resume.Presentation.Models.Entities.Education;
-using Resume.Presentation.Models.Entities.Experience;
-using Resume.Presentation.Models.Entities.MySkills;
+using Resume.Domain.Entities.Education;
+using Resume.Domain.Entities.Experience;
+using Resume.Domain.Entities.MySkills;
 
-namespace Resume.Presentation.Models.ResumeDbContext;
+namespace Resume.Infrastructure.DbContext;
 
 
 #endregion
 
-public class ResumeDbContext:DbContext
+public class ResumeDbContext:Microsoft.EntityFrameworkCore.DbContext
 {
     #region Ctor
 

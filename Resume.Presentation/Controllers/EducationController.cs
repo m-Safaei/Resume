@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Resume.Application.Services.Interface;
-using Resume.Presentation.Models.Entities.Education;
+using Resume.Domain.Entities.Education;
 
 
 namespace Resume.Presentation.Controllers;

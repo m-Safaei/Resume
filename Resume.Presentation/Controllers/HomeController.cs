@@ -1,32 +1,62 @@
+#region Usings
+
 using Microsoft.AspNetCore.Mvc;
 using Resume.Presentation.Models;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using Resume.Application.DTOs.SiteSide.Home_Index;
+using Resume.Domain.Entities.Education;
+using Resume.Domain.Entities.Experience;
+using Resume.Domain.Entities.MySkills;
+using Resume.Infrastructure.DbContext;
 
-namespace Resume.Presentation.Controllers
+namespace Resume.Presentation.Controllers;
+
+
+#endregion
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+
+    #region Ctor
+
+    private readonly ResumeDbContext _context;
+
+    public HomeController(ResumeDbContext context)
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        _context = context;
     }
+
+    #endregion
+
+
+    public async Task<IActionResult> Index()
+    {
+        List<MySkills> mySkillsAsync =await _context.MySkills.ToListAsync();
+        List<MySkills> mySkillsSync = _context.MySkills.ToList();
+
+        List<Education> educationsAsync = await _context.Educations.ToListAsync();
+        List<Education> educationsSync = _context.Educations.ToList();
+
+        List<Experience> experiencesAsync = await _context.Experiences.ToListAsync();
+        List<Experience> experiencesSync = _context.Experiences.ToList();
+
+        #region Fill Instance Model
+
+        HomeIndexModelDTO model = new()
+        {
+            Educations = educationsAsync,
+            Experiences = experiencesAsync,
+            MySkills = mySkillsAsync
+        };
+
+        #endregion
+        //ViewBag() , ViewData[], TempData[] :These three do the same thing but their implementation is different. 
+        //ViewBag.Experience = experiencesAsync;
+        //ViewBag.MySkills = mySkillsAsync;
+        //ViewBag.Educations = educationsAsync;
+        return View(model);
+    }
+
 }
+
