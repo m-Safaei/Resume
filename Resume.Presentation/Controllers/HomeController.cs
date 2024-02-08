@@ -8,6 +8,7 @@ using Resume.Application.DTOs.SiteSide.Home_Index;
 using Resume.Domain.Entities.Education;
 using Resume.Domain.Entities.Experience;
 using Resume.Domain.Entities.MySkills;
+using Resume.Domain.RepositoryInterface;
 using Resume.Infrastructure.DbContext;
 
 namespace Resume.Presentation.Controllers;
@@ -17,14 +18,19 @@ namespace Resume.Presentation.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly IEducationRepository _educationRepository;
+    private readonly IExperienceRepository _experienceRepository;
+    private readonly IMySkillsRepository _mySkillsRepository;
 
     #region Ctor
 
-    private readonly ResumeDbContext _context;
-
-    public HomeController(ResumeDbContext context)
+    public HomeController(IEducationRepository educationRepository,
+                          IExperienceRepository experienceRepository,
+                          IMySkillsRepository mySkillsRepository)
     {
-        _context = context;
+        _educationRepository = educationRepository;
+        _experienceRepository = experienceRepository;
+        _mySkillsRepository = mySkillsRepository;
     }
 
     #endregion
@@ -32,22 +38,20 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        List<MySkills> mySkillsAsync =await _context.MySkills.ToListAsync();
-        List<MySkills> mySkillsSync = _context.MySkills.ToList();
 
-        List<Education> educationsAsync = await _context.Educations.ToListAsync();
-        List<Education> educationsSync = _context.Educations.ToList();
+        List<MySkills> mySkills = _mySkillsRepository.GetListOfMySkills();
 
-        List<Experience> experiencesAsync = await _context.Experiences.ToListAsync();
-        List<Experience> experiencesSync = _context.Experiences.ToList();
+        List<Education> educations = _educationRepository.GetListOfEducations();
+
+        List<Experience> experiences = _experienceRepository.GetListOfExperiences();
 
         #region Fill Instance Model
 
         HomeIndexModelDTO model = new()
         {
-            Educations = educationsAsync,
-            Experiences = experiencesAsync,
-            MySkills = mySkillsAsync
+            Educations = educations,
+            Experiences = experiences,
+            MySkills = mySkills
         };
 
         #endregion
