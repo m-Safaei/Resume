@@ -1,6 +1,7 @@
 ﻿#region Using
 
 using Microsoft.EntityFrameworkCore;
+using Resume.Domain.Entities.ContactUs;
 using Resume.Domain.Entities.Education;
 using Resume.Domain.Entities.Experience;
 using Resume.Domain.Entities.MySkills;
@@ -28,7 +29,8 @@ public class ResumeDbContext:Microsoft.EntityFrameworkCore.DbContext
     public DbSet<Experience> Experiences { get; set; }
     public DbSet<MySkills> MySkills { get; set; }
     public DbSet<Education> Educations { get; set; }
-    
+    public DbSet<ContactUs> ContactUs { get; set; }
+
 
     #endregion
 }
