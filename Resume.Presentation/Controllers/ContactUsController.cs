@@ -29,19 +29,13 @@ public class ContactUsController : Controller
         return View();
     }
     [HttpPost]
-    public async Task<IActionResult> ContactUs(string fullName,string mobile, string message)
+    public async Task<IActionResult> ContactUs(ContactUs contact)
     {
         //Object Mapping
-        ContactUs model = new()
-        {
-            FullName = fullName,
-            Mobile = mobile,
-            Message = message,
-            CreateDate = DateTime.Now,
-            IsSeenByAdmin = false
-        };
+
+
         //Add to the database
-        await _contactUsRepository.AddContactUsToTheDatabase(model);
+        await _contactUsRepository.AddContactUsToTheDatabase(contact);
 
         return View();
     }
