@@ -21,5 +21,10 @@ public class ContactUsRepository : IContactUsRepository
         await _context.SaveChangesAsync();
     }
 
+    public async Task AddLocationToTheDatabase(ContactUsLocation location)
+    {
+        await _context.Locations.AddAsync(location);
+        await _context.SaveChangesAsync();
+    }
 }
 
