@@ -30,6 +30,7 @@ public class ResumeDbContext:Microsoft.EntityFrameworkCore.DbContext
     public DbSet<MySkills> MySkills { get; set; }
     public DbSet<Education> Educations { get; set; }
     public DbSet<ContactUs> ContactUs { get; set; }
+    public DbSet<ContactUsLocation> Locations { get; set; }
 
 
     #endregion
