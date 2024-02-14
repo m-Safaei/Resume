@@ -5,6 +5,7 @@ using Resume.Presentation.Models;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Resume.Application.DTOs.SiteSide.Home_Index;
+using Resume.Application.Services.Interface;
 using Resume.Domain.Entities.Education;
 using Resume.Domain.Entities.Experience;
 using Resume.Domain.Entities.MySkills;
@@ -18,19 +19,13 @@ namespace Resume.Presentation.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly IEducationRepository _educationRepository;
-    private readonly IExperienceRepository _experienceRepository;
-    private readonly IMySkillsRepository _mySkillsRepository;
 
     #region Ctor
+    private readonly IDashboardService _dashboardService;
 
-    public HomeController(IEducationRepository educationRepository,
-                          IExperienceRepository experienceRepository,
-                          IMySkillsRepository mySkillsRepository)
+    public HomeController(IDashboardService dashboardService)
     {
-        _educationRepository = educationRepository;
-        _experienceRepository = experienceRepository;
-        _mySkillsRepository = mySkillsRepository;
+        _dashboardService = dashboardService;
     }
 
     #endregion
@@ -39,26 +34,8 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
 
-        List<MySkills> mySkills = _mySkillsRepository.GetListOfMySkills();
+        var model = await _dashboardService.FillDashboardModel();
 
-        List<Education> educations = _educationRepository.GetListOfEducations();
-
-        List<Experience> experiences = _experienceRepository.GetListOfExperiences();
-
-        #region Fill Instance Model
-
-        HomeIndexModelDTO model = new()
-        {
-            Educations = educations,
-            Experiences = experiences,
-            MySkills = mySkills
-        };
-
-        #endregion
-        //ViewBag() , ViewData[], TempData[] :These three do the same thing but their implementation is different. 
-        //ViewBag.Experience = experiencesAsync;
-        //ViewBag.MySkills = mySkillsAsync;
-        //ViewBag.Educations = educationsAsync;
         return View(model);
     }
 

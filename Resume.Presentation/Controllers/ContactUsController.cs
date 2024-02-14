@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Resume.Application.DTOs.SiteSide.ContactUs;
+using Resume.Application.Services.Interface;
 using Resume.Domain.Entities.ContactUs;
 using Resume.Domain.RepositoryInterface;
 
@@ -14,11 +15,11 @@ public class ContactUsController : Controller
 {
 
     #region Ctor
+    private readonly IContactUsService _contactUsService;
 
-    private readonly IContactUsRepository _contactUsRepository;
-    public ContactUsController(IContactUsRepository contactUsRepository)
+    public ContactUsController(IContactUsService contactUsService)
     {
-        _contactUsRepository = contactUsRepository;
+        _contactUsService = contactUsService;
     }
 
     #endregion
@@ -29,24 +30,16 @@ public class ContactUsController : Controller
     {
         return View();
     }
-    [HttpPost]
+    [HttpPost,ValidateAntiForgeryToken]
     public async Task<IActionResult> ContactUs(ContactUsDTO contactUsDto)
     {
-        //Object Mapping
-        ContactUs contact = new()
+        if (ModelState.IsValid)
         {
-            FullName = contactUsDto.FullName,
-            Mobile = contactUsDto.Mobile,
-            Message = contactUsDto.Message,
-        };
-        ContactUsLocation location = new()
-        {
-            Address = contactUsDto.Address,
-        };
+            await _contactUsService.AddNewContactUsMessage(contactUsDto);
+            return RedirectToAction("Index", "Home");
 
-        //Add to the database
-        await _contactUsRepository.AddContactUsToTheDatabase(contact);
-        await _contactUsRepository.AddLocationToTheDatabase(location);
+        }
+
 
         return View();
     }
