@@ -30,6 +30,10 @@ namespace Resume.Presentation
             #region Services
 
             builder.Services.AddScoped<IContactUsService, ContactUsService>();
+            builder.Services.AddScoped<IDashboardService, DashboardService>();
+            builder.Services.AddScoped<IEducationService, EducationService>();
+            builder.Services.AddScoped<IExperienceService, ExperienceService>();
+            builder.Services.AddScoped<IMySkillsService, MySkillsService>();
 
             #endregion
 
@@ -51,6 +55,10 @@ namespace Resume.Presentation
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "area",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",

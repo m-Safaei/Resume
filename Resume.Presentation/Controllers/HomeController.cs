@@ -1,16 +1,7 @@
 #region Usings
 
 using Microsoft.AspNetCore.Mvc;
-using Resume.Presentation.Models;
-using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
-using Resume.Application.DTOs.SiteSide.Home_Index;
 using Resume.Application.Services.Interface;
-using Resume.Domain.Entities.Education;
-using Resume.Domain.Entities.Experience;
-using Resume.Domain.Entities.MySkills;
-using Resume.Domain.RepositoryInterface;
-using Resume.Infrastructure.DbContext;
 
 namespace Resume.Presentation.Controllers;
 
